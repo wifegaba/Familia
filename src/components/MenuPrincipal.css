@@ -207,3 +207,75 @@
   .brand-plate{ border-radius: 22px; }
   .dock{ border-radius: 30px; }
 }
+
+/* ===== Optimización móvil extra (≤ 480px) ===== */
+@media (max-width: 480px){
+  .pantalla{
+    padding-left: 12px;
+    padding-right: calc(24px + env(safe-area-inset-right, 0px));
+    gap: 12px;
+  }
+
+  .panel-logo{ gap: 10px; }
+
+  .brand-plate{
+    width: 160px;
+    height: 160px;
+    border-radius: 20px;
+    box-shadow:
+            inset 8px 8px 20px rgba(17,24,39,.12),
+            inset -8px -8px 20px rgba(255,255,255,.95);
+  }
+
+  .landing-title{
+    font-size: 22px;          /* antes clamp(...) */
+    letter-spacing: .2px;
+    margin-top: 2px;
+  }
+
+  .dock{
+    width: 100%;
+    padding: 12px;            /* menos vidrio → contenido más compacto */
+    border-radius: 22px;
+    gap: 12px;
+    box-shadow:
+            0 18px 36px rgba(21,26,55,.12),
+            0 1px 4px rgba(21,26,55,.05);
+  }
+
+  .glass-card{
+    grid-template-columns: 54px 1fr; /* icono más contenido */
+    gap: 12px;
+    padding: 14px;
+    border-radius: 18px;
+    box-shadow:
+            0 12px 24px rgba(21,26,55,.12),
+            0 1px 4px rgba(21,26,55,.06);
+  }
+  .glass-card:active{ transform: scale(.995); }
+
+  .accent-circle{
+    width: 48px;
+    height: 48px;
+    box-shadow:
+            inset 0 0 0 2px rgba(255,255,255,.9),
+            0 8px 18px rgba(0,0,0,.14);
+  }
+
+  .glass-right h2{
+    font-size: 18px;
+    margin-bottom: 2px;
+  }
+  .glass-right p{
+    font-size: 12px;
+    line-height: 1.25;
+  }
+
+  .creditos{ margin-top: 12px; font-size: 12px; }
+}
+
+/* Opcional: micro-ajuste para pantallas “estrechas y altas” */
+@media (max-width: 380px){
+  .brand-plate{ width: 140px; height: 140px; }
+  .landing-title{ font-size: 20px; }
+}

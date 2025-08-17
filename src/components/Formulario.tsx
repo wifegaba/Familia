@@ -592,9 +592,9 @@ export default function FamilyPage() {
                             if (!sel) {
                                 return (
                                     <div className="modal-body modal-body--scroll" style={{ paddingTop: 6 }}>
-                                        <div style={{ display: 'flex', gap: 16 }}>
+                                        <div className="residence-options">
                                             {/* Zona urbana */}
-                                            <article className="member-card" style={{ width: '50%', minHeight: 220 }}>
+                                            <article className="member-card residence-card" style={{ minHeight: 220 }}>
                                                 <div className="member-left">
                                                     <img className="member-avatar" src={ICON_URB} alt="Zona urbana" style={{ width: 110, height: 110 }} />
                                                     <div className="member-texts">
@@ -625,7 +625,7 @@ export default function FamilyPage() {
                                             </article>
 
                                             {/* Zona rural */}
-                                            <article className="member-card" style={{ width: '50%', minHeight: 220 }}>
+                                            <article className="member-card residence-card" style={{ minHeight: 220 }}>
                                                 <div className="member-left">
                                                     <img className="member-avatar" src={ICON_RUR} alt="Zona rural" style={{ width: 110, height: 110 }} />
                                                     <div className="member-texts">
@@ -656,6 +656,7 @@ export default function FamilyPage() {
                                             </article>
                                         </div>
                                     </div>
+
                                 );
                             }
 
