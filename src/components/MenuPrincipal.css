@@ -1,202 +1,209 @@
-/* ====== Vars ====== */
+/* ===== Paleta y base ===== */
 :root{
-  --mac-bg-start:#f6f7fb;
-  --mac-bg-end:#eef1f7;
-  --mac-primary:#7c0a0a;          /* rojo institucional */
-  --mac-primary-ink:#ffffff;
-  --mac-ink:#0f172a;
-  --mac-ink-2:#334155;
-  --radius-xl:22px;
-  --radius-lg:18px;
-}
-@media (prefers-color-scheme: dark){
-  :root{
-    --mac-bg-start:#0b1220;
-    --mac-bg-end:#0a0f1a;
-    --mac-ink:#e5e7eb;
-    --mac-ink-2:#cbd5e1;
-  }
+  /* Colores del logo */
+  --accent-pink: #ff2d7d;   /* magenta del logo */
+  --accent-pink-dark: #8a0a45;
+  --accent-indigo: #6b46ff; /* índigo/violeta del logo */
+  --accent-indigo-dark: #3a2ed5;
+
+  --bg-1: #f8faff;
+  --bg-2: #eef2f8;
+
+  --ink: #1f2937;
+  --muted: #667085;
+
+  --plate: #f8faff;
+  --radius-xl: 26px;
+  --radius-xxl: 40px;
+
+  --glass-border: rgba(255,255,255,.55);
+  --glass-fill: rgba(255,255,255,.14);
+  --glass-fill-strong: rgba(255,255,255,.18);
 }
 
-/* ====== Fondo suave tipo macOS ====== */
-body{
-  background:
-          radial-gradient(1200px 700px at 50% -10%, #ffffff80 0%, #ffffff00 60%),
-          linear-gradient(180deg, var(--mac-bg-start), var(--mac-bg-end));
-}
-
-/* ====== Lienzo ====== */
+/* ===== Pantalla ===== */
 .pantalla{
-  min-height: 100svh;
+  min-height: 100dvh;
   display: grid;
-  place-items: start center;
-  gap: clamp(16px, 3vw, 28px);
-  padding: clamp(16px, 3vw, 28px);
+  grid-template-rows: auto auto 1fr;
+  gap: 16px;
+  padding: 28px 18px 24px;
+  background: linear-gradient(180deg, var(--bg-1), var(--bg-2));
+  position: relative;
+  overflow-x: hidden;
 }
 
-/* ====== Logo ====== */
+/* ===== Logo estampado + título ===== */
 .panel-logo{
   display: grid;
-  place-items: center;
-  padding-top: 8px;
-}
-.logo-n2ncu{
-  width: clamp(180px, 36vw, 460px);
-  height: auto;
-  filter: drop-shadow(0 8px 28px rgba(0,0,0,.12));
-  user-select: none;
-  pointer-events: none;
+  align-content: start;
+  justify-items: center;
+  gap: 14px;
+  margin-top: 4px;
 }
 
-/* ====== Tarjetas ====== */
-.panel-tarjetas{
+.brand-plate{
+  width: clamp(240px, 26vw, 360px);
+  height: clamp(240px, 26vw, 360px);
+  border-radius: 28px;
   display: grid;
-  grid-template-columns: repeat(2, minmax(240px, 1fr));
-  gap: clamp(16px, 2.5vw, 28px);
-}
-@media (max-width: 720px){
-  .panel-tarjetas{ grid-template-columns: 1fr; }
-}
-
-/* Tarjeta estilo “glass mac” */
-.tarjeta{
+  place-items: center;
+  background: var(--plate);
+  /* efecto “estampado” (deboss) */
+  box-shadow:
+          inset 12px 12px 28px rgba(17,24,39,.14),
+          inset -12px -12px 28px rgba(255,255,255,.95);
   position: relative;
-  isolation: isolate;
-  border-radius: var(--radius-xl);
-  padding: clamp(22px, 3.2vw, 30px) clamp(22px, 4vw, 36px);
-  color: var(--mac-primary-ink);
-  background:
-          linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,255,255,.04)),
-          linear-gradient(180deg, var(--mac-primary), #5f0808);
-  box-shadow:
-          0 30px 60px -25px rgba(124,10,10,.45),
-          0 10px 20px -12px rgba(124,10,10,.35),
-          inset 0 1px 0 0 rgba(255,255,255,.25);
-  border: 1px solid rgba(255,255,255,.22);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  cursor: pointer;
-  transition: transform .35s cubic-bezier(.22,1,.36,1),
-  box-shadow .35s cubic-bezier(.22,1,.36,1),
-  filter .35s ease;
-  display: grid;
-  place-items: center;
-  gap: 10px;
-  text-align: center;
+  overflow: hidden;
 }
-
-/* Halo suave “mac” */
-.tarjeta::before{
+.brand-plate::after{
   content:"";
-  position:absolute; inset:-1px;
-  border-radius: inherit;
-  background: radial-gradient(120% 140% at 50% -10%, rgba(255,255,255,.28), transparent 60%);
-  z-index:-1;
+  position:absolute; inset:0;
+  background:
+          radial-gradient(120% 120% at 30% 30%, rgba(255,255,255,.38), transparent 60%),
+          radial-gradient(120% 120% at 70% 70%, rgba(0,0,0,.05), transparent 60%);
+  mix-blend-mode: soft-light;
+  pointer-events:none;
+}
+.logo-stamp{
+  width: 86%;
+  height: 86%;
+  object-fit: contain;
+  filter: drop-shadow(0 1px 1px rgba(0,0,0,.10));
 }
 
-/* Hover/active */
-.tarjeta:hover{
-  transform: translateY(-4px) scale(1.01);
-  box-shadow:
-          0 38px 72px -30px rgba(124,10,10,.55),
-          0 18px 32px -16px rgba(124,10,10,.45),
-          inset 0 1px 0 0 rgba(255,255,255,.28);
-  filter: saturate(1.02);
-}
-.tarjeta:active{ transform: translateY(-1px) scale(.995); }
-
-/* Contenido */
-.tarjeta h2{
+.landing-title{
   margin: 0;
   font-weight: 800;
-  letter-spacing: .2px;
-  font-size: clamp(18px, 1.6vw, 22px);
+  letter-spacing: .4px;
+  font-size: clamp(28px, 3.3vw, 44px);
+  color: #2b315c;
 }
 
-/* Reduced motion */
-@media (prefers-reduced-motion: reduce){
-  .tarjeta, .tarjeta:hover{ transition: none; transform: none; }
-}
+/* ===== Dock (glassmorphism) ===== */
+.dock{
+  margin: 4px auto 0;
+  width: min(980px, 96vw);
+  padding: clamp(14px, 2.2vw, 20px);
+  border-radius: 46px;
+  position: relative;
 
-/* ====== Footer ====== */
-.creditos{
-  margin-top: 12px;
-  color: var(--mac-ink-2);
-  font-size: .95rem;
-  text-align: center;
-  opacity: .9;
-}
+  /* vidrio esmerilado */
+  background: linear-gradient(180deg, rgba(255,255,255,.32), rgba(255,255,255,.20));
+  border: 1px solid rgba(255,255,255,.55);
+  -webkit-backdrop-filter: blur(14px) saturate(120%);
+  backdrop-filter: blur(14px) saturate(120%);
 
-
-/* ===== Overlay “En desarrollo” (arreglado) ===== */
-.dev-overlay{
-  position: fixed; inset: 0; z-index: 1000;
-  display: grid; place-items: center;
-  background: rgba(2,6,23,.55);
-  backdrop-filter: blur(4px);
-}
-
-.dev-card{
-  width: min(92vw, 380px);
-  border-radius: 18px;
-  background: linear-gradient(180deg, #ffffff, #f7f8fb);
-  border: 1px solid rgba(148,163,184,.35);
-  color: var(--mac-ink, #0f172a);      /* ⬅ fallback oscuro legible */
-  padding: 22px;
-  text-align: center;
   box-shadow:
-          0 28px 60px -28px rgba(0,0,0,.35),
-          0 8px 26px -12px rgba(0,0,0,.25);
+          0 30px 60px rgba(21,26,55,.16),
+          0 2px 6px rgba(21,26,55,.05);
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(14px, 2vw, 26px);
 }
 
-/* Icono */
-.dev-gear{ color: #94a3b8; }
-
-/* Textos con contraste (con fallback si no hay variables) */
-.dev-title{
-  font-weight: 800; font-size: 1.15rem; margin-top: 10px;
-  color: var(--mac-ink, #0f172a);
-}
-.dev-desc{
-  color: var(--mac-ink-2, #334155);
-  margin: 6px 0 12px;
-}
-
-/* Botón */
-.dev-btn{
-  appearance: none;
-  border: 1px solid rgba(148,163,184,.35);
-  background: #f1f5f9;
-  color: var(--mac-ink, #0f172a);
-  padding: 10px 14px;
-  border-radius: 12px;
-  font-weight: 600;
+/* ===== Tarjeta glass ===== */
+.glass-card{
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 14px;
+  border-radius: var(--radius-xl);
+  padding: clamp(16px, 2.2vw, 22px);
+  background: var(--glass-fill);
+  border: 1px solid var(--glass-border);
+  -webkit-backdrop-filter: blur(18px) saturate(130%);
+  backdrop-filter: blur(18px) saturate(130%);
+  box-shadow:
+          0 20px 40px rgba(21,26,55,.14),
+          0 2px 6px rgba(21,26,55,.06);
   cursor: pointer;
-  transition: background-color .2s ease, transform .06s ease, box-shadow .2s ease;
+  transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
 }
-.dev-btn:hover{ background:#e2e8f0; box-shadow: 0 8px 18px -10px rgba(0,0,0,.25); }
-.dev-btn:active{ transform: translateY(1px); }
-
-/* Animación del engranaje */
-.spin{ animation: mp-spin 1.1s linear infinite; }
-@keyframes mp-spin { to { transform: rotate(360deg); } }
-
-/* Tema oscuro opcional (si el sistema está en dark mode) */
-@media (prefers-color-scheme: dark){
-  .dev-card{
-    background: linear-gradient(180deg, #0f172a, #0b1220);
-    border-color: rgba(148,163,184,.25);
-    color: #e5e7eb;
-  }
-  .dev-title{ color:#e5e7eb; }
-  .dev-desc{ color:#cbd5e1; }
-  .dev-btn{
-    background:#111827; color:#e5e7eb; border-color:#374151;
-  }
-  .dev-btn:hover{ background:#1f2937; }
+.glass-card:hover{
+  transform: translateY(-2px);
+  box-shadow:
+          0 24px 56px rgba(21,26,55,.18),
+          0 3px 8px rgba(21,26,55,.08);
+  background: var(--glass-fill-strong);
 }
 
+.glass-left{
+  display:grid; place-items:center;
+}
+.accent-circle{
+  width: clamp(58px, 5.2vw, 72px);
+  height: clamp(58px, 5.2vw, 72px);
+  border-radius: 999px;
+  display:grid; place-items:center;
+  color:#fff;
+  box-shadow:
+          inset 0 0 0 2px rgba(255,255,255,.9),
+          0 10px 26px rgba(0,0,0,.16);
+}
+.admin-accent{
+  background: linear-gradient(180deg, var(--accent-pink), var(--accent-pink-dark));
+}
+.users-accent{
+  background: linear-gradient(180deg, var(--accent-indigo), var(--accent-indigo-dark));
+}
 
+.glass-right h2{
+  margin: 0 0 2px;
+  font-size: clamp(18px, 2.2vw, 22px);
+  color: #0f172a;
+  letter-spacing: .2px;
+}
+.glass-right p{
+  margin: 0;
+  color: var(--muted);
+  font-size: clamp(13px, 1.4vw, 14px);
+}
 
+/* ===== Footer ===== */
+.creditos{
+  text-align: center;
+  margin-top: 18px;
+  color: #475569;
+}
 
+/* ===== Overlay “En desarrollo” (glass) ===== */
+.dev-overlay{
+  position: fixed; inset: 0; z-index: 60;
+  display: grid; place-items: center;
+  background: linear-gradient(180deg, rgba(15,23,42,.35), rgba(15,23,42,.45));
+}
+.dev-card{
+  width: min(560px, 92vw);
+  border-radius: 24px;
+  padding: 22px 20px;
+  background: rgba(255,255,255,.18);
+  border: 1px solid rgba(255,255,255,.55);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  backdrop-filter: blur(18px) saturate(140%);
+  box-shadow: 0 28px 60px rgba(0,0,0,.22);
+  text-align: center;
+  color: #0f172a;
+}
+.dev-gear{ color:#0f172a; opacity:.9; }
+.spin{ animation: spin 2.6s linear infinite; }
+@keyframes spin{ to{ transform: rotate(360deg); } }
+.dev-title{ margin: 10px 0 4px; font-weight: 800; font-size: 22px; }
+.dev-desc{ margin: 0 0 12px; color:#334155; }
+.dev-btn{
+  appearance:none; border:1px solid rgba(0,0,0,.08);
+  background: linear-gradient(180deg, #fff, #f4f6ff);
+  border-radius: 12px; padding: 10px 16px;
+  font-weight: 700; cursor: pointer;
+  box-shadow: 0 8px 18px rgba(0,0,0,.08);
+}
 
+/* ===== Responsive ===== */
+@media (max-width: 860px){
+  .dock{ grid-template-columns: 1fr; }
+}
+@media (max-width: 520px){
+  .brand-plate{ border-radius: 22px; }
+  .dock{ border-radius: 30px; }
+}
